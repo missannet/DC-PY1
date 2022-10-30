@@ -1,5 +1,5 @@
 def delete(list_, index=None):
-    if index != None:
+    if index is not None:
         del list_[index]
         return list_
     del list_[-1:]
