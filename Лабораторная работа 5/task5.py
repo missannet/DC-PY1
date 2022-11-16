@@ -1,20 +1,32 @@
-import random  # импортируем инструмент для получения случайного значения
+import random  # импортируем инструмент для генерации случайных выборок
+import string  # импортируем методы для str
 
 
-def get_unique_list_numbers() -> list[int]:
-    '''
-    This is a function that returns a list of 15 elements filled
-    with random and unique integers from -10 to 10
+def get_random_password() -> str:
+    """
+    This function generates random passwords, length n.
+    Characters used: uppercase letters (A - Z),
+    lowercase letters (a - z), numbers: 0 - 9
+
     :return:
-    list
-    '''
+    password
+    """
+    n = 8  # задаем длину пароля
+    low_ltrs = string.ascii_lowercase.strip()  # строка с буквами нижнего регистра
+    upper_ltrs = string.ascii_uppercase.strip()  # строка с буквами верхнего регистра
+    num = string.digits  # строка цифр
+    items = (low_ltrs + upper_ltrs + num)
 
-    list_ = list()  # создаем рабочий список
-    while len(set(list_)) < 15:  # задаем условие для списка: состоит из 15 уникальных элементов
-        list_.append(random.randint(-10, 10))  # заполняем список случайными значениями
-    return list(set(list_))  # возвращаем список, состоящий из уникальных случайных значений
+    while True:  # проверка наличия всех символов
+
+        all_bool = list()
+        password = random.sample(population=items, k=n)
+        all_bool.append(any(x in password for x in low_ltrs))  # проверяем пароль на наличие букв с нижним регистром
+        all_bool.append(any(x in password for x in upper_ltrs))  # проверяем пароль на наличие букв с верхним регистром
+        all_bool.append(any(x in password for x in num))  # проверяем пароль на наличие цифр
+
+        if all(all_bool):
+            return "".join(password)
 
 
-list_unique_numbers = get_unique_list_numbers()
-print(list_unique_numbers)
-print(len(list_unique_numbers) == len(set(list_unique_numbers)))
+print(get_random_password())
