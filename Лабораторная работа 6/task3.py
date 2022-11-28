@@ -4,17 +4,26 @@ OUTPUT_FILE = "output.csv"
 # TODO реализовать функцию to_csv_file
 def to_csv_file(filename: str, headers: list[str], rows: list[list[str]],
                 delimiter: str = ",", new_line: str = '\n'):
+    '''
+    Функция записывает данные в формат csv
 
-    headers = f'{delimiter}'.join(headers) + new_line
-    with open(filename, 'w') as file:
-        file.write(headers)
-        for lines in rows:
-            if lines is rows[-1]:
-                lines = [x.rstrip() for x in lines]
-                lines = f'{delimiter}'.join(lines)
+    :param filename: str
+    :param headers: list[str]
+    :param rows: list[list[str]]
+    :param delimiter: str
+    :param new_line: str
+    :return: None
+    '''
+    headers = f'{delimiter}'.join(headers) + new_line  # объединяет элементы списка через разделитель и добавляет перенос строки
+    with open(filename, 'w') as file:  # создаем файл на запись
+        file.write(headers)  # записываем в файл заголовки
+        for lines in rows:  # перебираем список по каждому списку
+            if lines is rows[-1]:  # отбираем последний итератор
+                lines = [x.rstrip() for x in lines]  # перебираем список по элементам, убирая конечные символы
+                lines = f'{delimiter}'.join(lines)  # объединяет элементы списка через разделитель
             else:
-                lines = f'{delimiter}'.join(lines) + new_line
-            file.write(lines)
+                lines = f'{delimiter}'.join(lines) + new_line  # объединяет элементы списка через разделитель и добавляет перенос строки
+            file.write(lines)  # записываем в файл данные
 
 
 
